@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
 import Die from "./components/Die";
 
 export default function Home() {
-  const [dice, setDice] = useState<number[]>([]);
+  const [dice, setDice] = useState(generateAllNewDice());
 
   function generateAllNewDice() {
     const numberArray: number[] = [];
@@ -20,25 +20,26 @@ export default function Home() {
 
   return (
     <div style={background}>
-      <div style={canvas} className="place-content-center p-6">
-        {/* <h1 className="text-2xl">Tenzies</h1>
-        <p className="">Lets play tenzies</p> */}
+      <div style={canvas}>
+        <h1 className="text-2xl">Tenzies</h1>
+        <p className="">Lets play tenzies</p>
         <div className="grid grid-cols-5 gap-4 place-items-center">
           {dice.map((e, index) => (
             <Die key={index} value={e} />
           ))}
         </div>
-        <div>
-          <button className="text-gray-700" onClick={rollDice}>
-            Roll Dice
-          </button>
-        </div>
+        <button
+          className="cursor-pointer bg-indigo-500 text-white font-semibold text-lg rounded-lg shadow p-2 px-6"
+          onClick={rollDice}
+        >
+          Roll
+        </button>
       </div>
     </div>
   );
 }
 
-const background = {
+const background: CSSProperties = {
   backgroundColor: "#0B2434",
   height: "100vh",
   display: "flex",
@@ -47,11 +48,16 @@ const background = {
   padding: "20px",
 };
 
-const canvas = {
+const canvas: CSSProperties = {
   backgroundColor: "#f5f5f5",
   height: "100%",
   width: "100%",
   maxHeight: "400px",
   maxWidth: "400px",
   borderRadius: "6px",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "32px",
 };
