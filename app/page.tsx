@@ -1,18 +1,22 @@
+"use client";
+import { useState } from "react";
 import Die from "./components/Die";
 
 export default function Home() {
-  const diceArray = [];
+  const [dice, setDice] = useState<number[]>([]);
 
   function generateAllNewDice() {
+    const numberArray: number[] = [];
     for (let i = 0; i < 10; i++) {
       const randomNum = Math.floor(Math.random() * 6) + 1;
-      diceArray.push(randomNum);
+      numberArray.push(randomNum);
     }
-    return diceArray;
+    return numberArray;
   }
 
-  console.log(generateAllNewDice());
-  console.log(diceArray.length);
+  const rollDice = () => {
+    setDice(generateAllNewDice());
+  };
 
   return (
     <div style={background}>
@@ -20,9 +24,14 @@ export default function Home() {
         {/* <h1 className="text-2xl">Tenzies</h1>
         <p className="">Lets play tenzies</p> */}
         <div className="grid grid-cols-5 gap-4 place-items-center">
-          {diceArray.map((e, index) => (
+          {dice.map((e, index) => (
             <Die key={index} value={e} />
           ))}
+        </div>
+        <div>
+          <button className="text-gray-700" onClick={rollDice}>
+            Roll Dice
+          </button>
         </div>
       </div>
     </div>
