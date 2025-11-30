@@ -2,14 +2,22 @@
 import { useState, CSSProperties } from "react";
 import Die from "./components/Die";
 
+type DiceObject = {
+  value: number;
+  isHeld: boolean;
+};
+
 export default function Home() {
-  const [dice, setDice] = useState(generateAllNewDice());
+  const [dice, setDice] = useState<DiceObject[]>(generateAllNewDice());
 
   function generateAllNewDice() {
-    const numberArray: number[] = [];
+    const numberArray: DiceObject[] = [];
     for (let i = 0; i < 10; i++) {
       const randomNum = Math.floor(Math.random() * 6) + 1;
-      numberArray.push(randomNum);
+      numberArray.push({
+        value: randomNum,
+        isHeld: true,
+      });
     }
     return numberArray;
   }
@@ -25,7 +33,7 @@ export default function Home() {
         <p className="">Lets play tenzies</p>
         <div className="grid grid-cols-5 gap-4 place-items-center">
           {dice.map((e, index) => (
-            <Die key={index} value={e} />
+            <Die key={index} value={e.value} isHeld={e.isHeld} />
           ))}
         </div>
         <button
